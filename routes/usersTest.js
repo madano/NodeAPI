@@ -15,27 +15,57 @@ var usersTest = {
 
             console.log('connected as id ' + connection.threadId);
 
-            var temp = 0;
-            var query = "CALL add_user_facebook(??,??)";
-            var table = [req.body.email, temp];
+            var query = "INSERT INTO ??(??, ??) VALUES (?, ?)";
+            var table = ["users","email","registered_with",req.body.email, "facebook"];
             query = mysql.format(query,table);
             connection.query(query,function(err,rows){
                 if(err) {
                     res.json({"Error" : true, "Message" : err});
                 } else {
-                    console.log(rows);
+                    console.log(rows.insertId);
+                    add_to_facebook_table(rows.insertId, req.body.facebookId, res, err, connection);
+                    connection.release();
                     res.json({"Rows" : rows});
-                    //next();
+                    return;
                 }
             });
 
             connection.on('error', function(err) {
+                connection.release();
                 res.json({"code" : 100, "status" : "Error in connection database"});
                 return;
             });
         });
     }
 };
+
+function add_to_facebook_table(user_id, facebook_id, res, err, connection) {
+
+        if (err) {
+            connection.release();
+            res.json({"code" : 100, "status" : "Error in connection database"});
+            return;
+        }
+
+        console.log('connected as id ' + connection.threadId);
+
+        var query = "INSERT INTO ??(??, ??) VALUES (?, ?)";
+        var table = ["facebook_users","user_id","facebook_id",user_id, facebook_id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : err});
+            } else {
+                return;
+            }
+        });
+
+        connection.on('error', function(err) {
+            res.json({"code" : 100, "status" : "Error in connection database"});
+            return;
+        });
+}
+
 function handle_database(req,res) {
 
   pool.getConnection(function(err,connection){
