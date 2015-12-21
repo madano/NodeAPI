@@ -8,6 +8,7 @@ var registerUsers = require('./registerUsers.js');
 var retrievePosts = require('./retrievePosts.js');
 var addPost = require('./addPost.js');
 var addPostInteraction = require('./addPostInteraction.js');
+var getUserInteractions = require('./retrieveUserInteractions.js');
 /*
  * Routes that can be accessed by any one
  */
@@ -16,6 +17,7 @@ router.post('/addUserWithTwitter', registerUsers.addUserWithTwitter);
 router.post('/getTwitterPosts', retrievePosts.getTwitterPosts);
 router.post('/addTwitterPost', addPost.addTwitterPost);
 router.post('/addTwitterPostInteraction', addPostInteraction.addTwitterPostInteraction);
+router.post('/getTwitterPostInteractions', getUserInteractions.getTwitterPostInteractions);
 //router.post('/registerFacebook', auth.login);
 /*
  * Routes that can be accessed only by autheticated users
