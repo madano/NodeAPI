@@ -4,13 +4,18 @@ var router = express.Router();
 var auth = require('./auth.js');
 var products = require('./products.js');
 var user = require('./users.js');
-var userTest = require('./usersTest.js');
-
+var registerUsers = require('./registerUsers.js');
+var retrievePosts = require('./retrievePosts.js');
+var addPost = require('./addPost.js');
+var addPostInteraction = require('./addPostInteraction.js');
 /*
  * Routes that can be accessed by any one
  */
 router.post('/login', auth.login);
-router.post('/registerFacebook', userTest.registerFacebook);
+router.post('/addUserWithTwitter', registerUsers.addUserWithTwitter);
+router.post('/getTwitterPosts', retrievePosts.getTwitterPosts);
+router.post('/addTwitterPost', addPost.addTwitterPost);
+router.post('/addTwitterPostInteraction', addPostInteraction.addTwitterPostInteraction);
 //router.post('/registerFacebook', auth.login);
 /*
  * Routes that can be accessed only by autheticated users
