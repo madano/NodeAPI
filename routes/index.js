@@ -20,6 +20,8 @@ router.post('/addTwitterPost', addPost.addTwitterPost);
 router.post('/addTwitterPostInteraction', addPostInteraction.addTwitterPostInteraction);
 router.post('/getTwitterPostInteractions', getUserInteractions.getTwitterPostInteractions);
 router.post('/loginUserWithTwitter', loginUser.loginUserWithTwitter);
+router.post('/addCoinsToUser', loginUser.addCoinsToUser);
+router.post('/getCoinsForUser', loginUser.getCoinsForUser);
 //router.post('/registerFacebook', auth.login);
 /*
  * Routes that can be accessed only by autheticated users
